@@ -1,0 +1,41 @@
+<ion-view view-title="Register">
+<ion-header-bar class="bar-dark">
+  <button class="button" ng-click="">Back</button> 
+</ion-header-bar>
+<ion-nav-back-button class="button">
+    <i class="ion-arrow-left-c"></i> Back
+  </ion-nav-back-button>
+
+  <ion-content class="padding">
+    <div class="list">
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Username</span>
+        <input type="text" placeholder="Suhr" ng-model="user.username">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="john@suhr.com" ng-model="user.email">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Password</span>
+        <input type="password" placeholder="Password" ng-model="user.password">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Confirm Password</span>
+        <input type="password" placeholder="confirm" ng-model="confirm.password">
+      </label>
+  </div>
+
+  <div>
+  <a ng-click="register()"><button class="button button-block button-dark button-calm">
+  Submit
+</button></a>
+<a ng-click="login()" class="plain"><button class="button button-full button-dark">
+    Home
+ </button></a>
+</div>
+
+
+  </ion-content>
+</ion-view>

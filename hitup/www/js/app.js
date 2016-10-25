@@ -43,6 +43,13 @@ $stateProvider
         templateUrl:'templates/login.html',
         controller:'LoginCtrl'
       
+  })
+ .state('eventResponse',{
+    url:'/eventResponse',
+   
+        templateUrl:'templates/eventResponse.html',
+        controller:'EventResponseCtrl'
+      
   });
 
   $stateProvider
@@ -60,10 +67,19 @@ $stateProvider
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'EventFeed'
       }
     }
   })
+   .state('tab.profile', {
+      url: '/profile',
+      views: {
+        'tab-profile': {
+          templateUrl: 'templates/tab-profile.html',
+          controller: 'ProfileCtrl'
+        }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',

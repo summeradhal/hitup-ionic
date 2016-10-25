@@ -1,16 +1,33 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="HitUp">
   <ion-content class="padding">
 
-   <div class="list">
 
-    <a class="item item-avatar" href="#">
-      <img src="venkman.jpg">
-      <h2>Venkman</h2>
-      <p>Back off, man. I'm a scientist.</p>
-    </a>
+<div class="list card">
+ <div ng-repeat="event in eventFeed">
+  <div class="item item-avatar">
+    <img src="mcfly.jpg">
+    <h2>{{event.username}}</h2>
+    <p>Date:{{event.eventTime}}</p>
+  </div>
 
-    
-
+  <div class="item item-body">
+    <img class="full-image" src="delorean.jpg">
+    <p>Event Type:{{event.eventType}}</p>
+    <p>
+     {{event.eventDescription}}
+    </p>
+    <p>
+      <a href="#/eventResponse" class="subdued">1 hitup</a>
+      <a href="#/eventResponse" class="subdued">5 Comments</a>
+    </p>
+  </div>
+  <hr/>
 </div>
+</div>
+
+
+
+
+
   </ion-content>
 </ion-view>

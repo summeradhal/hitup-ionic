@@ -1,6 +1,7 @@
 angular.module('starter.controllers',['ngCordova'])
 
 .controller('DashCtrl', function($scope) {})
+.controller('EventResponseCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -22,6 +23,11 @@ angular.module('starter.controllers',['ngCordova'])
 })
 
 .controller('AccountCtrl', function($scope) {
+  $scope.settings = {
+    enableFriends: true
+  };
+})
+.controller('ProfileCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
@@ -106,7 +112,45 @@ angular.module('starter.controllers',['ngCordova'])
     })
   }
 
-
 })
 
+.controller('EventFeed', function($scope, $http) {
+  var url = "http://localhost:3000";
+  $http.post(url + '/eventFeed')
+  .then(function succeess(rspns) {
+    console.log(rspns.data.object);
+    console.log("big win")
+    $scope.eventFeed = rspns.data;
+  }, function fail(rspns) {
+    console.log("big fail")
+    console.log(rspns);
+  });
+  console.log("Posts");
+ // MODAL
+//   $ionicModal.fromTemplateUrl('templates/modals/eventResponse.html', {
+//     scope: $scope, animation: 'slide-in-up'
+//   }).then(function(modal) {
+//     $scope.modal = modal;
+//   });
+//     $scope.openModal = function(eventFeed) {
+//     $scope.eventFeed = eventFeed;
+//     $scope.modal.show();
+//     };
+//     $scope.closeModal = function() {
+  
+//     $scope.modal.hide();
+//   };
+//   // Cleanup the modal when we're done with it!
+//   $scope.$on('$destroy', function() {
+//     $scope.modal.remove();
+//   });
+//   // Execute action on hide modal
+//   $scope.$on('modal.hidden', function() {
+//     // Execute action
+//   });
+//   // Execute action on remove modal
+//   $scope.$on('modal.removed', function() {
+//     // Execute action
+// });
+});
 

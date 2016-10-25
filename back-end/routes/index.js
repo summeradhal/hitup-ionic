@@ -155,19 +155,75 @@ router.post('/eventPost',function(req,res,next){
     });
 
 // beginning of eventFeed
-// router.get('/eventFeed',function(req,res,next){
-//     EventPost.find()sort(-date)
-//             .exec(function(err,docs){
-//                 if(err){
-//                     return next(err)
-//                 }else{
-//                     res.json(docs)
+router.post('/eventFeed',function(req,res,next){
+    EventPost.find()
+            .exec(function(err,docs){
+                if(err){
+                    console.log("error here")
+                    return next(err)
+                }else{
+                    console.log("Event crap works")
+                    res.json(docs)
                     
-//                 }
-//             })
-//             }
-// });
-//end of eventFeed
+                }
+            })
+            
+});
+// end of eventFeed
+
+
+//Comment on post
+
+// Post events
+router.post('/commentEvent',function(req,res,next){
+    var commentEvent=req.body.commentEvent;
+     User.findOne({'username': commentEvent.username}, function (err, doc) {
+        if (err) {
+                console.log('error!');
+                console.log(err);
+                res.json({
+                    passFail: 0,
+                    status: "Failed at finding one" 
+                });
+            } else {
+                if (doc ) {
+                    var newEventPost = new EventPost({
+                       username:eventPost.username,
+                       eventTitle:eventPost.eventTitle,
+                       place:eventPost.place,
+                       eventTime:eventPost.eventTime,
+                       eventDescription:eventPost.eventDescription,
+                       typeEvent:eventPost.typeEvent
+                       
+                    });
+                    console.log('Did it work?');
+                    newEventPost.save(function(err, saved, status) {
+                        if (err) {
+                            console.log('nope');
+                            console.log(err);
+                            res.json({
+                                passFail: 0,
+                                status: "Event post creation failed."
+                            });
+                        } else {
+                            console.log(saved);
+                            res.json({
+                                passFail: 1,
+                                status: "Event post created!"
+                            });
+                        }
+                    });
+                } else {
+                    res.json({
+                        passFail: 0,
+                        status: "Username not found"
+                    });
+                }
+            }
+    });
+
+    });
+//end of Comment on post
 
 
 

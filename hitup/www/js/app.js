@@ -92,7 +92,16 @@ $stateProvider
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+  .state('tab.post', {
+      url: '/post',
+      views: {
+        'tab-post': {
+          templateUrl: 'templates/tab-post.html',
+          controller: 'EventPostCtrl'
+        }
+      }
+    });
 
   
 

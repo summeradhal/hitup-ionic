@@ -1,0 +1,49 @@
+<ion-view view-title="Post">
+  <ion-content>
+
+<!-- event name -->
+ <div class="list">
+  <label class="item item-input">
+    <input type="text" placeholder="username" ng-model="eventPost.username">
+  </label>
+
+  <div class="list">
+  <label class="item item-input">
+    <input type="text" placeholder="Event Title" ng-model="eventPost.eventTitle">
+  </label>
+  <!-- where -->
+  <label class="item item-input">
+    <input type="text" placeholder="Where" ng-model="eventPost.place">
+  </label>
+  <!-- date -->
+  <label class="item item-input">
+    <span class="input-label">Date</span>
+    <input type="date" ng-model="eventPost.eventTime">
+</label>
+  <!-- include how many, type of event -->
+  <label class="item item-input">
+    <textarea placeholder="Description" ng-model="eventPost.eventDescription"></textarea>
+  </label>
+
+  <!-- event type -->
+  <div class="row">
+  <ion-list class="col ">
+    <ion-checkbox  ng-model="postEvent.music">Music</ion-checkbox>
+    <ion-checkbox   ng-model="postEvent.outdoors">Outdoors</ion-checkbox>
+    <ion-checkbox  ng-model="postEvent.party">Party</ion-checkbox>
+    <ion-checkbox  ng-model="postEvent.food">Food</ion-checkbox>
+    <ion-checkbox  ng-model="postEvent.film">Film</ion-checkbox>
+    <ion-checkbox  ng-model="postEvent.arts">Arts</ion-checkbox> 
+    <ion-checkbox  ng-model="postEvent.other">Other</ion-checkbox>
+  </ion-list>
+ </div>
+
+
+</div>
+	<!-- submit button -->
+	<div>
+      <a ng-click="submitEventPost()" class="plain"><button class="button button-block button-positive button-calm" id="log-in-button"> Submit
+      </button></a>
+      </div>
+   </ion-content>
+</ion-view>

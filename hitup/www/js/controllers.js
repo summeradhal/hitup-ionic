@@ -26,20 +26,24 @@ angular.module('starter.controllers',['ngCordova'])
     enableFriends: true
   };
 })
+.controller('PostCtrl', function($scope) {
+  $scope.settings = {
+    enableFriends: true
+  };
+})
 
-.controller('LoginCtrl', function($scope, $http, $stateParams, $state) {
+.controller('LoginCtrl', function($scope, $http, $stateParams, $state,$rootScope) {
   var url = "http://localhost:3000";
-  $scope.username = {};
-  $scope.password = {};
+   $scope.user={};
   $scope.login = function() {
-    console.log($scope.username)
-      console.log($scope.password)
+    console.log($scope.user.username)
+      console.log($scope.user.password)
+
     $http.post(url + '/login', {
 
-      username: $scope.username.username,
-      password: $scope.password.password
+      user: $scope.user
     }).then(function success(rspns) {
-        // $rootScope.user = rspns.data.docs;
+        $rootScope.user = rspns.data.docs;
 
         $state.go('tab.dash');  //where there is main, put dash
         console.log('Tab dash')
@@ -84,5 +88,25 @@ angular.module('starter.controllers',['ngCordova'])
 })
 
 
+.controller('EventPostCtrl',function($scope,$http,$stateParams,$state,$location){
+  var url="http://localhost:3000";
+  $scope.eventPost={};
+
+  $scope.submitEventPost=function(){
+    console.log($scope.eventPost);
+    $http.post(url+'/eventPost',{
+      eventPost:$scope.eventPost
+
+    }).then(function success(rspns){
+      console.log(rspns);
+      $state.go('tab.dash');
+    }, function fail(rspns){
+      console.log("error")
+
+    })
+  }
+
+
+})
 
 

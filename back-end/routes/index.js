@@ -18,18 +18,18 @@ router.post('/login', function(req, res, next) {
 
     User.findOne({'username': user.username}, function(err, docs) {
             if (err) {
-                console.log("Error")
+                console.log("Could not Find")
                 console.log(err);
                 res.json({
-                    passFail: 0,
+                    failure: "badPass",
                     status: "Failed at findOne"
                 });
             } else {
                 if (docs == null) {
-                    console.log("else docs")
+                    console.log("Nothing found. It failed")
                     console.log(docs);
                     res.json({
-                        passFail: 0,
+                        failure: "badPass",
                         status: "Failed at findOne, doc is null"
                     });
                 } else {
@@ -41,7 +41,7 @@ router.post('/login', function(req, res, next) {
                         User.findOneAndUpdate({'_id': docs._id}, {$set: {'token': token}}, {upsert: true, new: true}, function(err, docs) {
                             console.log("password checked");
                             res.json({
-                                passFail: 1,
+                                success: "userFound",
                                 status: "User found",
                                 docs: docs
                             });
@@ -49,7 +49,7 @@ router.post('/login', function(req, res, next) {
                     } else {
                             console.log("else pass")
                             res.json({
-                                passFail: 0,
+                                failure: "badPass",
                                 status: 'User name and password did not match.'
                             });
                     }
@@ -107,57 +107,68 @@ router.post('/register', function(req, res, next) {
 // Post events
 router.post('/eventPost',function(req,res,next){
     var eventPost=req.body.eventPost;
-     User.findOne({'username': eventPost.username}, function (err, doc) {
-        if (err) {
-                console.log('error!');
-                console.log(err);
-                res.json({
-                    passFail: 0,
-                    status: "Failed at finding one" 
-                });
-            } else {
-                if (doc ) {
-                    var newEventPost = new EventPost({
-                       username:eventPost.username,
-                       eventTitle:eventPost.eventTitle,
-                       place:eventPost.place,
-                       eventTime:eventPost.eventTime,
-                       eventDescription:eventPost.eventDescription,
-                       typeEvent:eventPost.typeEvent
+     db.collection('users').find({usersName: req.body.username}).toArray(function(error,result){
+      if(username!='NULL'){
+        res.json(result)
+          console.log(result.ussersName)
+          var username =result.usersName;
+
+      }else{
+        console.log("Error")
+      }
+    //  User.findOne({'username': eventPost.username}, function (err, doc) {
+    //     if (err) {
+    //             console.log('error!');
+    //             console.log(err);
+    //             res.json({
+    //                 passFail: 0,
+    //                 status: "Failed at finding one" 
+    //             });
+    //         } else {
+    //             if (doc ) {
+    //                 var newEventPost = new EventPost({
+    //                    username:eventPost.username,
+    //                    eventTitle:eventPost.eventTitle,
+    //                    place:eventPost.place,
+    //                    eventTime:eventPost.eventTime,
+    //                    eventDescription:eventPost.eventDescription,
+    //                    typeEvent:eventPost.typeEvent
                        
-                    });
-                    console.log('Did it work?');
-                    newEventPost.save(function(err, saved, status) {
-                        if (err) {
-                            console.log('nope');
-                            console.log(err);
-                            res.json({
-                                passFail: 0,
-                                status: "Event post creation failed."
-                            });
-                        } else {
-                            console.log(saved);
-                            res.json({
-                                passFail: 1,
-                                status: "Event post created!"
-                            });
-                        }
-                    });
-                } else {
-                    res.json({
-                        passFail: 0,
-                        status: "Username not found"
-                    });
-                }
-            }
+    //                 });
+    //                 console.log('Did it work?');
+    //                 newEventPost.save(function(err, saved, status) {
+    //                     if (err) {
+    //                         console.log('nope');
+    //                         console.log(err);
+    //                         res.json({
+    //                             passFail: 0,
+    //                             status: "Event post creation failed."
+    //                         });
+    //                     } else {
+    //                         console.log(saved);
+    //                         res.json({
+    //                             passFail: 1,
+    //                             status: "Event post created!"
+    //                         });
+    //                     }
+    //                 });
+    //             } else {
+    //                 res.json({
+    //                     passFail: 0,
+    //                     status: "Username not found"
+    //                 });
+    //             }
+    //         }
     });
 
     });
 
 // beginning of eventFeed
 router.post('/eventFeed',function(req,res,next){
+
     EventPost.find()
             .exec(function(err,docs){
+
                 if(err){
                     console.log("error here")
                     return next(err)

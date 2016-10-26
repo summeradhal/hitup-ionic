@@ -43,18 +43,37 @@ angular.module('starter.controllers',['ngCordova'])
    $scope.user={};
   $scope.login = function() {
     console.log($scope.user.username)
-      console.log($scope.user.password)
+    console.log($scope.user.password)
 
     $http.post(url + '/login', {
-
+     
       user: $scope.user
-    }).then(function success(rspns) {
-        $rootScope.user = rspns.data.docs;
 
+    }).then(function success(rspns) {
+       if (rspns.data.failure == 'noToken' || rspns.data.failure == 'badPass'){
+       
+      }else if(rspns.data.success=="userFound"){
+      
         $state.go('tab.dash');  //where there is main, put dash
         console.log('Tab dash')
+        var expDate = new Date();
+        expDate.setDate(expDate.getTime() + (30 * 60000));
+        // $cookies.put('token',response.data.token);
+       
+        
+        $scope.user.username=rspns.data;
+
+      
+        $scope.loggedIn=true;
+        console.log(rspns)
+        
+      
+      
+        $location.path('/options');
+      }
     }, function failure(rspns) {
         console.log("AJAX failed")
+        console.log("Your log in failed summer")
         console.log(rspns);
     });
   };

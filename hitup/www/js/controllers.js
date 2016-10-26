@@ -169,5 +169,22 @@ angular.module('starter.controllers',['ngCordova'])
     })
   }
 
-});
+})
+
+
+
+.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location) {
+  var url = "http://localhost:3000";
+  $http.post(url + '/eventFeed')
+  .then(function succeess(rspns) {
+    console.log(rspns.data.object);
+    console.log("big win")
+    $scope.eventFeed = rspns.data;
+  }, function fail(rspns) {
+    console.log("big fail")
+    console.log(rspns);
+  });
+  console.log("Posts");
+
+})
 // End Event comment

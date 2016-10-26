@@ -7,8 +7,19 @@ var User = require('../models/user');
 var EventPost = require('../models/eventPost');
 
 // mongoose.connect('mongodb://' + mongoCreds.username + ':' + mongoCreds.password + '@ds057476.mlab.com:57476/snaap_dog');
+mongoUrl='mongodb://' + 'summer' + ':' + 'summer' + '@ds031617.mlab.com:31617/hitup';
+mongoose.connect(mongoUrl,function(error,database){
+    if (error){
+        console.log(error)
+    }else{
+        db=database;
+        console.log("Connected to mongo successfully")
+    }
+});
 
-mongoose.connect('mongodb://' + 'summer' + ':' + 'summer' + '@ds031617.mlab.com:31617/hitup');
+
+
+
 
 var bcrypt = require('bcrypt-nodejs');
 var randToken = require('rand-token');
@@ -43,7 +54,8 @@ router.post('/login', function(req, res, next) {
                             res.json({
                                 success: "userFound",
                                 status: "User found",
-                                docs: docs
+                                docs: docs,
+                                token:token
                             });
                         });
                     } else {
@@ -107,88 +119,8 @@ router.post('/register', function(req, res, next) {
 // Post events
 router.post('/eventPost',function(req,res,next){
     var eventPost=req.body.eventPost;
-     db.collection('users').find({usersName: req.body.username}).toArray(function(error,result){
-      if(username!='NULL'){
-        res.json(result)
-          console.log(result.ussersName)
-          var username =result.usersName;
-
-      }else{
-        console.log("Error")
-      }
-    //  User.findOne({'username': eventPost.username}, function (err, doc) {
-    //     if (err) {
-    //             console.log('error!');
-    //             console.log(err);
-    //             res.json({
-    //                 passFail: 0,
-    //                 status: "Failed at finding one" 
-    //             });
-    //         } else {
-    //             if (doc ) {
-    //                 var newEventPost = new EventPost({
-    //                    username:eventPost.username,
-    //                    eventTitle:eventPost.eventTitle,
-    //                    place:eventPost.place,
-    //                    eventTime:eventPost.eventTime,
-    //                    eventDescription:eventPost.eventDescription,
-    //                    typeEvent:eventPost.typeEvent
-                       
-    //                 });
-    //                 console.log('Did it work?');
-    //                 newEventPost.save(function(err, saved, status) {
-    //                     if (err) {
-    //                         console.log('nope');
-    //                         console.log(err);
-    //                         res.json({
-    //                             passFail: 0,
-    //                             status: "Event post creation failed."
-    //                         });
-    //                     } else {
-    //                         console.log(saved);
-    //                         res.json({
-    //                             passFail: 1,
-    //                             status: "Event post created!"
-    //                         });
-    //                     }
-    //                 });
-    //             } else {
-    //                 res.json({
-    //                     passFail: 0,
-    //                     status: "Username not found"
-    //                 });
-    //             }
-    //         }
-    });
-
-    });
-
-// beginning of eventFeed
-router.post('/eventFeed',function(req,res,next){
-
-    EventPost.find()
-            .exec(function(err,docs){
-
-                if(err){
-                    console.log("error here")
-                    return next(err)
-                }else{
-                    console.log("Event crap works")
-                    res.json(docs)
-                    
-                }
-            })
-            
-});
-// end of eventFeed
-
-
-//Comment on post
-
-// Post events
-router.post('/commentEvent',function(req,res,next){
-    var commentEvent=req.body.commentEvent;
-     User.findOne({'username': commentEvent.username}, function (err, doc) {
+    
+     User.findOne({'username': eventPost.username}, function (err, doc) {
         if (err) {
                 console.log('error!');
                 console.log(err);
@@ -221,6 +153,83 @@ router.post('/commentEvent',function(req,res,next){
                             res.json({
                                 passFail: 1,
                                 status: "Event post created!"
+                            });
+                        }
+                    });
+                } else {
+                    res.json({
+                        passFail: 0,
+                        status: "Username not found"
+                    });
+                }
+            }
+    });
+
+    });
+
+// beginning of eventFeed
+router.post('/eventFeed',function(req,res,next){
+
+    EventPost.find()
+            .exec(function(err,docs){
+
+                if(err){
+                    console.log("error here")
+                    return next(err)
+                }else{
+                    console.log("Event crap works")
+                    res.json(docs)
+                    
+                }
+            })
+            
+});
+// end of eventFeed
+
+
+//Comment on post
+
+// Post events
+router.post('/commentEvent',function(req,res,next){
+
+    var userInfo = req.query;
+    var token = userInfo.token;
+    var commentEvent=req.body.commentEvent;
+     User.findOne({token: token}, function (err, doc) {
+        if (err) {
+                console.log('error!');
+                console.log(err);
+                res.json({
+                    passFail: 0,
+                    status: "Failed at finding one" 
+                });
+            } else {
+                if (doc ) {
+                   var username=doc.username;
+                    var newEventPost = new EventPost({
+                       username:eventPost.username,
+                       eventTitle:eventPost.eventTitle,
+                       place:eventPost.place,
+                       eventTime:eventPost.eventTime,
+                       eventDescription:eventPost.eventDescription,
+                       typeEvent:eventPost.typeEvent
+                       
+                    });
+                    console.log('Did it work?');
+                    newEventPost.save(function(err, saved, status) {
+                        if (err) {
+                            console.log('nope');
+                            console.log(err);
+                            res.json({
+                                passFail: 0,
+                                status: "Event post creation failed."
+                            });
+                        } else {
+                            console.log(saved);
+                            res.json({
+                                passFail: 1,
+                                status: "Event post created!",
+                                token:token
                             });
                         }
                     });

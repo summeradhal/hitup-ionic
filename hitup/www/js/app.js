@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ui.router','ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ui.router','ngCordova','ngStorage'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$localStorage,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    if ($localStorage.token === undefined) {
+    $rootScope.logged = false;
+   } else {
+    $rootScope.logged = true;
+  }
   });
 })
 

@@ -38,7 +38,7 @@ angular.module('starter.controllers',['ngCordova'])
   };
 })
 
-.controller('LoginCtrl', function($scope, $http, $stateParams, $state,$rootScope) {
+.controller('LoginCtrl', function($scope, $http, $stateParams, $state,$rootScope,$localStorage) {
   var url = "http://localhost:3000";
    $scope.user={};
   $scope.login = function() {
@@ -53,23 +53,22 @@ angular.module('starter.controllers',['ngCordova'])
        if (rspns.data.failure == 'noToken' || rspns.data.failure == 'badPass'){
        
       }else if(rspns.data.success=="userFound"){
-      
-        $state.go('tab.dash');  //where there is main, put dash
+      console.log(rspns);
+       $localStorage.token = rspns.data.token;
+       $localStorage.user = rspns.data.docs.username;
+        $rootScope.logged=true;
+        console.log(rspns.data.docs.username);
+        console.log($localStorage.user);
+
+       //where there is main, put dash
         console.log('Tab dash')
         var expDate = new Date();
         expDate.setDate(expDate.getTime() + (30 * 60000));
         // $cookies.put('token',response.data.token);
+        
+        console.log(rspns) 
+       $state.go('tab.dash');  
        
-        
-        $scope.user.username=rspns.data;
-
-      
-        $scope.loggedIn=true;
-        console.log(rspns)
-        
-      
-      
-        $location.path('/options');
       }
     }, function failure(rspns) {
         console.log("AJAX failed")
@@ -113,10 +112,11 @@ angular.module('starter.controllers',['ngCordova'])
 })
 
 
-.controller('EventPostCtrl',function($scope,$http,$stateParams,$state,$location){
+.controller('EventPostCtrl',function($scope,$http,$stateParams,$state,$location,$localStorage){
   var url="http://localhost:3000";
   $scope.eventPost={};
-
+  $scope.eventPost.username=$localStorage.user;
+  console.log($scope.eventPost.username);
   $scope.submitEventPost=function(){
     console.log($scope.eventPost);
     $http.post(url+'/eventPost',{
@@ -124,6 +124,7 @@ angular.module('starter.controllers',['ngCordova'])
 
     }).then(function success(rspns){
       console.log(rspns);
+     
       $state.go('tab.dash');
     }, function fail(rspns){
       console.log("error")

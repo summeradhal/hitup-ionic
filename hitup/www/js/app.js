@@ -49,11 +49,11 @@ $stateProvider
         controller:'LoginCtrl'
       
   })
- .state('eventResponse',{
-    url:'/eventResponse',
+ .state('eventComment',{
+    url:'/eventComment',
    
-        templateUrl:'templates/eventResponse.html',
-        controller:'EventResponseCtrl'
+        templateUrl:'templates/eventComment.html',
+        controller:'EventCommentCtrl'
       
   });
 

@@ -1,0 +1,18 @@
+<ion-view view-title="Comment">
+<ion-header-bar class="bar-dark">
+  <a><button class="button" ng-click="">Back</button> </a>
+</ion-header-bar>
+  <ion-content class="padding">
+
+
+ <label class="item item-input">
+    <textarea placeholder="Comment" ng-model="eventComment.comment"></textarea>
+  </label>
+
+<a href="#/tab/dash" class="plain"><button class="button button-block button-positive button-calm" id="back-button"> Back
+      </button></a>
+  <a ng-click="submitEventComment()" class="plain"><button class="button button-block button-positive button-calm" id="comment-button"> Submit
+   </button></a>
+
+</ion-content>
+</ion-view>

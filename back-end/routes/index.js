@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 // console.log(mongoCreds.username)
 var User = require('../models/user');
 var EventPost = require('../models/eventPost');
+var EventComments = require('../models/eventComments');
 
 // mongoose.connect('mongodb://' + mongoCreds.username + ':' + mongoCreds.password + '@ds057476.mlab.com:57476/snaap_dog');
 mongoUrl='mongodb://' + 'summer' + ':' + 'summer' + '@ds031617.mlab.com:31617/hitup';
@@ -190,12 +191,12 @@ router.post('/eventFeed',function(req,res,next){
 //Comment on post
 
 // Post events
-router.post('/commentEvent',function(req,res,next){
+router.post('/eventComments',function(req,res,next){
 
-    var userInfo = req.query;
-    var token = userInfo.token;
-    var commentEvent=req.body.commentEvent;
-     User.findOne({token: token}, function (err, doc) {
+   
+    var eventComment=req.body.eventComment;
+     User.findOne({username:eventComment.username}, function (err, doc) {
+        console.log("Here it is summer");
         if (err) {
                 console.log('error!');
                 console.log(err);
@@ -206,17 +207,13 @@ router.post('/commentEvent',function(req,res,next){
             } else {
                 if (doc ) {
                    var username=doc.username;
-                    var newEventPost = new EventPost({
-                       username:eventPost.username,
-                       eventTitle:eventPost.eventTitle,
-                       place:eventPost.place,
-                       eventTime:eventPost.eventTime,
-                       eventDescription:eventPost.eventDescription,
-                       typeEvent:eventPost.typeEvent
+                    var newEventComments = new EventComments({
+                       username:eventComment.username,
+                       comment:eventComment.comment
                        
                     });
                     console.log('Did it work?');
-                    newEventPost.save(function(err, saved, status) {
+                    newEventComments.save(function(err, saved, status) {
                         if (err) {
                             console.log('nope');
                             console.log(err);
@@ -228,12 +225,13 @@ router.post('/commentEvent',function(req,res,next){
                             console.log(saved);
                             res.json({
                                 passFail: 1,
-                                status: "Event post created!",
-                                token:token
+                                status: "Event post created!"
+                                
                             });
                         }
                     });
                 } else {
+                    console.log("IT FAILED SOMER");
                     res.json({
                         passFail: 0,
                         status: "Username not found"

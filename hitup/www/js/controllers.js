@@ -146,31 +146,28 @@ angular.module('starter.controllers',['ngCordova'])
     console.log(rspns);
   });
   console.log("Posts");
- // MODAL
-//   $ionicModal.fromTemplateUrl('templates/modals/eventResponse.html', {
-//     scope: $scope, animation: 'slide-in-up'
-//   }).then(function(modal) {
-//     $scope.modal = modal;
-//   });
-//     $scope.openModal = function(eventFeed) {
-//     $scope.eventFeed = eventFeed;
-//     $scope.modal.show();
-//     };
-//     $scope.closeModal = function() {
-  
-//     $scope.modal.hide();
-//   };
-//   // Cleanup the modal when we're done with it!
-//   $scope.$on('$destroy', function() {
-//     $scope.modal.remove();
-//   });
-//   // Execute action on hide modal
-//   $scope.$on('modal.hidden', function() {
-//     // Execute action
-//   });
-//   // Execute action on remove modal
-//   $scope.$on('modal.removed', function() {
-//     // Execute action
-// });
-});
 
+})
+
+.controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location){
+   var url="http://localhost:3000";
+  $scope.eventComment={};
+  $scope.eventComment.username=$localStorage.user;
+  console.log($scope.eventComment.username);
+  $scope.submitEventComment=function(){
+    console.log($scope.eventComment);
+    $http.post(url+'/eventComments',{
+      eventComment:$scope.eventComment
+
+    }).then(function success(rspns){
+      console.log(rspns);
+     
+      $state.go('tab.dash');
+    }, function fail(rspns){
+      console.log("error")
+
+    })
+  }
+
+});
+// End Event comment

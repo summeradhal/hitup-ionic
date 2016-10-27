@@ -51,7 +51,7 @@ angular.module('starter.controllers',['ngCordova'])
 
     }).then(function success(rspns) {
        if (rspns.data.failure == 'noToken' || rspns.data.failure == 'badPass'){
-       
+        console.log("oh vey")
       }else if(rspns.data.success=="userFound"){
       console.log(rspns);
        $localStorage.token = rspns.data.token;
@@ -134,7 +134,13 @@ angular.module('starter.controllers',['ngCordova'])
 
 })
 
-.controller('EventFeed', function($scope, $http) {
+.controller('EventFeed', function($scope, $http,$localStorage) {
+  $scope.profileUsername=function(username){
+    console.log("Thisthishtis")
+       console.log(username);
+      $localStorage.profileUsername=username;
+      console.log($localStorage.profileUsername);
+  }
   var url = "http://localhost:3000";
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
@@ -150,7 +156,7 @@ angular.module('starter.controllers',['ngCordova'])
 })
 
 .controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location){
-   var url="http://localhost:3000";
+  var url="http://localhost:3000";
   $scope.eventComment={};
   $scope.eventComment.username=$localStorage.user;
   console.log($scope.eventComment.username);
@@ -175,10 +181,20 @@ angular.module('starter.controllers',['ngCordova'])
 
 .controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location) {
   var url = "http://localhost:3000";
+  console.log("DID IT WORK Profile");
+  $scope.profileUsername=function(username){
+    console.log("Thisthishtis")
+       console.log(username);
+      $localStorage.profileUsername=username;
+      console.log($localStorage.profileUsername);
+  }
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
     console.log(rspns.data.object);
     console.log("big win")
+   console.log($scope.username)
+   $scope.profileUsername=$localStorage.profileUsername;
+   console.log($scope.profileUsername)
     $scope.eventFeed = rspns.data;
   }, function fail(rspns) {
     console.log("big fail")
@@ -186,5 +202,5 @@ angular.module('starter.controllers',['ngCordova'])
   });
   console.log("Posts");
 
-})
+});
 // End Event comment

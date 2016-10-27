@@ -77,11 +77,11 @@ $stateProvider
     }
   })
    .state('tab.profile', {
-      url: '/profile',
+      url: '/profile/:username',
       views: {
         'tab-profile': {
           templateUrl: 'templates/tab-profile.html',
-          controller: 'EventFeed'
+          controller: 'ProfileCtrl'
         }
       }
     })

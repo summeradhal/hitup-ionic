@@ -5,8 +5,8 @@
 <div class="list card">
  <div ng-repeat="event in eventFeed">
   <div class="item item-avatar">
-    <img src="images/homer.jpg">
-    <h2>{{event.username}}</h2>
+   <!-- <a href="#/tab/profile/{{user.username}"}> --> <img src="images/homer.jpg"><!-- </a> -->
+    <h2><a href="#/tab/profile/{{event.username}}" ng-click="profileUsername('{{event.username}}')">{{event.username}}</a></h2>
     <p>Date:{{event.eventTime}}</p>
   </div>
 

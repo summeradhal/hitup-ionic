@@ -7,15 +7,21 @@
     <img src="mcfly.jpg">
     <h2>{{profileUsername}}</h2>
     <p>November 05, 1955</p>
+    <button class="button button-positive" ng-click="submitFriendRequest('{{profileUsername}}')">
+  Follow
+</button>
+<button class="button button-positive">
+  Unfollow
+</button>
   </div>
 
   <div class="item item-body">
-    <img class="full-image" src="delorean.jpg">
+    <img class="full-image" src="homer.jpg">
     
     <hr/>
-    <div class="list" ng-repeat="eventPost in eventFeed">
+    <div class="list" ng-repeat="eventPost in eventFeed" >
 
-     <a class="item item-avatar" href="#">
+     <a class="item item-avatar" href="#/tab/profile/{{eventPost.username}}" ng-click="submitProfileUsername('{{eventPost.username}}')">
       <img src="/images/homer.jpg">
       <h2>{{eventPost.username}}</h2>
       <p>{{eventPost.eventDescription}}</p>

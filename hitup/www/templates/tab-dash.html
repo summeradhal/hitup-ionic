@@ -3,8 +3,8 @@
 
 
 <div class="list card">
- <div ng-repeat="event in eventFeed">
-  <div class="item item-avatar">
+ <div ng-repeat="event in eventFeed" href="#/tab/profile/{{event.username}}">
+  <div class="item item-avatar" >
    <!-- <a href="#/tab/profile/{{user.username}"}> --> <img src="images/homer.jpg"><!-- </a> -->
     <h2><a href="#/tab/profile/{{event.username}}" ng-click="profileUsername('{{event.username}}')">{{event.username}}</a></h2>
     <p>Date:{{event.eventTime}}</p>

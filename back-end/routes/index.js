@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var EventPost = require('../models/eventPost');
 var EventComments = require('../models/eventComments');
+var Friends= require('../models/friends');
 
 // mongoose.connect('mongodb://' + mongoCreds.username + ':' + mongoCreds.password + '@ds057476.mlab.com:57476/snaap_dog');
 mongoUrl='mongodb://' + 'summer' + ':' + 'summer' + '@ds031617.mlab.com:31617/hitup';
@@ -240,7 +241,7 @@ router.post('/eventComments',function(req,res,next){
             }
     });
 
-    });
+    })
 //end of Comment on post
 
 
@@ -266,6 +267,62 @@ router.post('/eventComments',function(req,res,next){
 //         }
 //     });
 // }); 
+
+
+// Add Friends
+router.post('/addFriends',function(res,req,next){
+    var friendUsername=req.body.friendUsername;
+    var username=req.body.username;
+    console.log(username);
+     console.log("I HOPE THIS WORKS");
+    User.findOne({username:username}, function (err, doc) {
+        console.log("Here it is summer");
+        if (err) {
+                console.log('error!');
+                console.log(err);
+                res.json({
+                    passFail: 0,
+                    status: "Failed at finding one" 
+                });
+            } else {
+                if (doc ) {
+                   var username=doc.username;
+                    var newFriends = new Friends({
+                       friendUsername:friendUsername,
+                       username:username
+                       
+                    });
+                    console.log('Did it work?');
+                    newFriends.save(function(err, saved, status) {
+                        if (err) {
+                            console.log('nope');
+                            console.log(err);
+                            res.json({
+                                passFail: 0,
+                                status: "Event post creation failed."
+                            });
+                        } else {
+                            console.log(saved);
+                            res.json({
+                                passFail: 1,
+                                status: "Event post created!"
+                                
+                            });
+                        }
+                    });
+                } else {
+                    console.log("IT FAILED SOMER");
+                    res.json({
+                        passFail: 0,
+                        status: "Username not found"
+                    });
+                }
+            }
+    });
+});
+
+
+
 module.exports = router;
 
 

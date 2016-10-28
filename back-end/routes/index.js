@@ -241,7 +241,7 @@ router.post('/eventComments',function(req,res,next){
             }
     });
 
-    })
+    });
 //end of Comment on post
 
 
@@ -270,11 +270,13 @@ router.post('/eventComments',function(req,res,next){
 
 
 // Add Friends
-router.post('/addFriends',function(res,req,next){
-    var friendUsername=req.body.friendUsername;
-    var username=req.body.username;
+router.post('/addFriends',function(req,res,next){
+    console.log(req);
+            var friendUsername=req.body.username;
+            var username=req.body.friendUsername;
     console.log(username);
-     console.log("I HOPE THIS WORKS");
+
+         console.log("I HOPE THIS WORKS");
     User.findOne({username:username}, function (err, doc) {
         console.log("Here it is summer");
         if (err) {

@@ -1,5 +1,9 @@
 angular.module('starter.controllers',['ngCordova'])
 
+.controller('tabCtrl',function($scope,$localStorage){
+userOn=$localStorage.user;
+console.log(userOn)
+})
 .controller('DashCtrl', function($scope) {})
 .controller('EventResponseCtrl', function($scope) {})
 
@@ -135,6 +139,7 @@ angular.module('starter.controllers',['ngCordova'])
 })
 
 .controller('EventFeed', function($scope, $http,$localStorage) {
+  
   $scope.profileUsername=function(username){
     console.log("Thisthishtis")
        console.log(username);
@@ -162,25 +167,7 @@ angular.module('starter.controllers',['ngCordova'])
   console.log($scope.eventComment.username);
   $scope.submitEventComment=function(){
     console.log($scope.eventComment);
-      $scope.submitFriendRequest=function(username){
-        console.log("Adding friends is fun");
-    $localStorage.friendRequest=username;
-
-    console.log($localStorage.friendRequest);
-  return localStorage.friendRequest
-  }
-  return $http.post(url + '/addFriends',{
-
-   friendUsername:$localStorage.friendRequest,
-    username:$localStorage.user
- })
-  .then(function succeess(rspns) {
-    console.log("Friend add successful")
-   
-  }, function fail(rspns) {
-    console.log("friend add failed")
-    console.log(rspns);
-  });
+      
     $http.post(url+'/eventComments',{
       eventComment:$scope.eventComment
 
@@ -194,44 +181,61 @@ angular.module('starter.controllers',['ngCordova'])
     })
   }
 
+  $http.get(url+'eventComments',{
+
+  }).then(function success(rspns){
+    console.log(rspns)
+  }),function fail(rsnps){
+    console.log("error get comments")
+  }
+
 })
 
 
 
-.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location) {
+.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory) {
   var url = "http://localhost:3000";
   console.log("DID IT WORK Profile");
  $scope.submitProfileUsername=function(username){
     console.log("Thisthishtis")
-       console.log(username);
+      console.log(username);
       $localStorage.profileUsername=username;
       console.log($localStorage.profileUsername);
 
   }
-  $scope.submitFriendRequest=function(username){
-        console.log("Adding friends is fun");
-    $localStorage.friendRequest=username;
 
-    console.log($localStorage.friendRequest);
-   localStorage.friendRequest
+   $scope.submitFriendRequest=function(){
+    console.log($localStorage.profileUsername);
+    console.log("Adding friends is fun");
+    
+    friendRequestFactory.friendFactory($localStorage.profileUsername);
+
   }
-   $http.post(url + '/addFriends',{
-   friendUsername:$localStorage.friendRequest,
-    username:$localStorage.user
- })
-  .then(function succeess(rspns) {
-    console.log("Friend add successful")
+
+ //  $scope.submitFriendRequest=function(username){
+ //        console.log("Adding friends is fun");
+ //    $localStorage.friendRequest=username;
+
+ //    console.log($localStorage.friendRequest);
+ //   localStorage.friendRequest
+ //   $http.post(url + '/addFriends',{
+ //   friendUsername:$localStorage.friendRequest,
+ //    username:$localStorage.user
+ // })
+ //  .then(function succeess(rspns) {
+ //    console.log("Friend add successful")
    
-  }, function fail(rspns) {
-    console.log("friend add failed")
-    console.log(rspns);
-  });
+ //  }, function fail(rspns) {
+ //    console.log("friend add failed")
+ //    console.log(rspns);
+ //  });
+ //  }
+   
 
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
-    console.log(rspns.data.object);
-    console.log("big win")
-   console.log($scope.username)
+    
+  
    $scope.profileUsername=$localStorage.profileUsername;
    console.log($scope.profileUsername)
     $scope.eventFeed = rspns.data;
@@ -241,29 +245,32 @@ angular.module('starter.controllers',['ngCordova'])
   });
   console.log("Posts");
 
-});
+})
 
-// .factory('friendRequestFactory',function($scope,$http,$localStorage,$stateParams,$state,$location){
-//    $scope.submitFriendRequest=function(username){
-//         console.log("Adding friends is fun");
-//     $localStorage.friendRequest=username;
+.service('friendRequestFactory',function($http,$localStorage){
+ 
+ this.friendFactory=function(username){
+  var url = "http://localhost:3000";
+  console.log(username+" the service")
+  
 
-//     console.log($localStorage.friendRequest);
-//   return localStorage.friendRequest
-//   }
-//   return $http.post(url + '/addFriends',{
-
-//    friendUsername:$localStorage.friendRequest,
-//     username:$localStorage.user
-//  })
-//   .then(function succeess(rspns) {
-//     console.log("Friend add successful")
+   $http.post(url + '/addFriends',{
+    friendUsername:$localStorage.profileUsername,
+    username:$localStorage.user
    
-//   }, function fail(rspns) {
-//     console.log("friend add failed")
-//     console.log(rspns);
-//   });
-//   return factory;
-// })
+ })
+  .then(function succeess(rspns) {
+    return rspns;
+    console.log(friendUsername);
+   
+  }, function fail(rspns) {
+    return rspns;
+   
+  });
+  
+ }
+
+
+})
 // End Event comment
 

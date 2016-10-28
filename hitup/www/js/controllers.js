@@ -216,7 +216,6 @@ angular.module('starter.controllers',['ngCordova'])
    localStorage.friendRequest
   }
    $http.post(url + '/addFriends',{
-
    friendUsername:$localStorage.friendRequest,
     username:$localStorage.user
  })

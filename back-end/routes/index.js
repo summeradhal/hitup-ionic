@@ -196,6 +196,7 @@ router.post('/eventComments',function(req,res,next){
 
    
     var eventComment=req.body.eventComment;
+    var eventPostId=req.body.eventPostId;
      User.findOne({username:eventComment.username}, function (err, doc) {
         console.log("Here it is summer");
         if (err) {
@@ -210,7 +211,8 @@ router.post('/eventComments',function(req,res,next){
                    var username=doc.username;
                     var newEventComments = new EventComments({
                        username:eventComment.username,
-                       comment:eventComment.comment
+                       comment:eventComment.comment,
+                       eventPostId:eventPostId
                        
                     });
                     console.log('Did it work?');
@@ -248,25 +250,26 @@ router.post('/eventComments',function(req,res,next){
 
 //emd pf get EventFeed
 
-//Remove post
-// router.post('/remove_post',function(req,res,next){
-//     var postId = req.body.postId;
-//     Posting.findByIdAndRemove(postId, function(err, docs) {
-//         if (err) { console.log(err);
-//             res.json({ passFail: 0, status: "Error in finding the post to remove"});
-//         } else {
-//             if (docs == null) {
-//                 console.log(docs);
-//             } else {
-//                 console.log("docs removed");
-//                 res.json({
-//                     passFail: 1,
-//                     docs: docs
-//                 });
-//             }
-//         }
-//     });
-// }); 
+// Remove post
+router.post('/remove_post',function(req,res,next){
+    var postId = req.body.id;
+    console.log(postId);
+    EventPost.findByIdAndRemove(postId, function(err, docs) {
+        if (err) { console.log(err);
+            res.json({ passFail: 0, status: "Error in finding the post to remove"});
+        } else {
+            if (docs == null) {
+                console.log(docs);
+            } else {
+                console.log("docs removed");
+                res.json({
+                    passFail: 1,
+                    docs: docs
+                });
+            }
+        }
+    });
+}); 
 
 
 // Add Friends

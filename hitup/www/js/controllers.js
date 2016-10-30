@@ -138,8 +138,18 @@ console.log(userOn)
 
 })
 
-.controller('EventFeed', function($scope, $http,$localStorage) {
+.controller('EventFeed', function($scope, $http,$localStorage,deletePost) {
   
+  $scope.submitEventPostId=function(id){
+    $localStorage.eventPostId=id;
+    $scope.eventPostId=$localStorage.eventPostId;
+    console.log($localStorage.eventPostId);
+    console.log($scope.eventPostId);
+  }
+    $scope.submitDeletePost=function(id){
+      console.log(id);
+      deletePost.deletePostService(id);
+    }
   $scope.profileUsername=function(username){
     console.log("Thisthishtis")
        console.log(username);
@@ -151,6 +161,7 @@ console.log(userOn)
   .then(function succeess(rspns) {
     console.log(rspns.data.object);
     console.log("big win")
+
     $scope.eventFeed = rspns.data;
   }, function fail(rspns) {
     console.log("big fail")
@@ -163,16 +174,20 @@ console.log(userOn)
 .controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location){
   var url="http://localhost:3000";
   $scope.eventComment={};
+  
   $scope.eventComment.username=$localStorage.user;
   console.log($scope.eventComment.username);
-  $scope.submitEventComment=function(){
+
+  $scope.submitEventComment=function(id){
     console.log($scope.eventComment);
-      
+      console.log(id);
     $http.post(url+'/eventComments',{
-      eventComment:$scope.eventComment
+      eventComment:$scope.eventComment,
+      eventPostId:id
 
     }).then(function success(rspns){
       console.log(rspns);
+      console.log("LWJDKLWAJLDK");
      
       $state.go('tab.dash');
     }, function fail(rspns){
@@ -181,13 +196,7 @@ console.log(userOn)
     })
   }
 
-  $http.get(url+'eventComments',{
-
-  }).then(function success(rspns){
-    console.log(rspns)
-  }),function fail(rsnps){
-    console.log("error get comments")
-  }
+  
 
 })
 
@@ -211,6 +220,9 @@ console.log(userOn)
     friendRequestFactory.friendFactory($localStorage.profileUsername);
 
   }
+
+
+
 
  //  $scope.submitFriendRequest=function(username){
  //        console.log("Adding friends is fun");
@@ -270,7 +282,34 @@ console.log(userOn)
   
  }
 
-
 })
+
+
+
+.service('deletePost',function($http,$localStorage){
+ 
+ this.deletePostService=function(id){
+  var url = "http://localhost:3000";
+  console.log(id+" the service")
+  
+
+   $http.post(url + '/remove_post',{
+    id:id
+   
+ })
+  .then(function succeess(rspns) {
+    return rspns;
+    console.log(id);
+   
+  }, function fail(rspns) {
+    return rspns;
+   
+  })
+  
+ }
+
+ })
+
+
 // End Event comment
 

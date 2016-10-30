@@ -1,4 +1,8 @@
-<ion-view view-title="HitUp">
+  <ion-view view-title="HitUp">
+<div class="bar bar-header bar-positive">
+
+   <button class="button ios-ion-compose"></button>
+</div>
   <ion-content class="padding">
 
 
@@ -18,7 +22,9 @@
     </p>
     <p>
       <a href="#/eventComment" class="subdued">1 hitup</a>
-      <a href="#/eventComment" class="subdued">5 Comments</a>
+      <a href="#/eventComment" ng-click="submitEventPostId('{{event._id}}')" class="subdued">Comments</a>
+       <button ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</button>
+    </p>
     </p>
   </div>
   <hr/>

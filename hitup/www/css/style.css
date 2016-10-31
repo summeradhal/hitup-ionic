@@ -1,5 +1,49 @@
 /* Empty. Add your own CSS if you like */
 
 body{
-	background-color: #000;
+	
+}
+
+.eventComment{
+	background-color: #28AFB0;
+}
+
+.register{
+	background-color: #28AFB0;
+}
+
+
+.login{
+background-color: #28AFB0;
+}
+
+.login h2{
+	text-align: center;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size:  36px;
+	 padding-top: 20%;
+}
+
+.login h5{
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	text-align: center;
+	font-size:  22px;
+	 padding-bottom: 20%;
+}
+
+.login .list{
+	width: 80%;
+	 margin: auto;
+
+}
+.login .login-button{
+	width: 50%;
+	margin: auto;
+}
+.login .register-button{
+	text-align: center;
+}
+
+.tab-dash button{
+	width: 2%;
 }

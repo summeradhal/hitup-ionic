@@ -269,7 +269,41 @@ router.post('/remove_post',function(req,res,next){
             }
         }
     });
-}); 
+})
+
+// Remove post
+router.post('/remove_friend',function(req,res,next){
+     console.log(req);
+            var friendUsername=req.body.username;
+            var username=req.body.friendUsername;
+    console.log(username);
+
+    
+    Friends.find(friendUsername, function(err, docs) {
+        Friends.find(username,function(err,docs){
+          console.log("Yo its here now friends deleting");
+        if (err) { 
+            console.log(err);
+            res.json({ passFail: 0, status: "Error in finding the post to remove"});
+        } else {
+            if (docs == null) {
+                console.log(docs);
+            } else {
+                console.log("docs removed");
+                console.log(docs)
+                  docs.remove();
+                res.json({
+                    passFail: 1,
+                    docs: docs
+                });
+                console.log(docs);
+            }
+        }
+    })
+    });
+
+})
+
 
 
 // Add Friends

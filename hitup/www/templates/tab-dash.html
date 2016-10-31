@@ -1,10 +1,5 @@
   <ion-view view-title="HitUp">
-<div class="bar bar-header bar-positive">
-
-   <button class="button ios-ion-compose"></button>
-</div>
-  <ion-content class="padding">
-
+<ion-content>
 
 <div class="list card">
  <div ng-repeat="event in eventFeed" href="#/tab/profile/{{event.username}}">
@@ -23,7 +18,7 @@
     <p>
       <a href="#/eventComment" class="subdued">1 hitup</a>
       <a href="#/eventComment" ng-click="submitEventPostId('{{event._id}}')" class="subdued">Comments</a>
-       <button ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</button>
+       <button class="button button-block button-dark button-calm" ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</button>
     </p>
     </p>
   </div>

@@ -183,7 +183,7 @@ console.log(userOn)
       console.log(id);
     $http.post(url+'/eventComments',{
       eventComment:$scope.eventComment,
-      eventPostId:id
+      eventPostId:$localStorage.eventPostId
 
     }).then(function success(rspns){
       console.log(rspns);
@@ -202,7 +202,7 @@ console.log(userOn)
 
 
 
-.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory) {
+.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory,deleteFriend) {
   var url = "http://localhost:3000";
   console.log("DID IT WORK Profile");
  $scope.submitProfileUsername=function(username){
@@ -213,7 +213,8 @@ console.log(userOn)
 
   }
 
-   $scope.submitFriendRequest=function(){
+
+   $scope.submitFriendRequest=function(username){
     console.log($localStorage.profileUsername);
     console.log("Adding friends is fun");
     
@@ -221,6 +222,11 @@ console.log(userOn)
 
   }
 
+  $scope.submitDeleteFriend=function(){
+      deleteFriend.friendDeleteService($localStorage.profileUsername);
+        console.log(localStorage.profileUsername);
+      
+  }
 
 
 
@@ -311,5 +317,30 @@ console.log(userOn)
  })
 
 
-// End Event comment
+.service('deleteFriend',function($http,$localStorage){
+ 
+ this.friendDeleteService=function(username){
+  var url = "http://localhost:3000";
+  console.log($localStorage.profileUsername+" the service")
+  
+
+   $http.post(url + '/remove_friend',{
+   friendUsername:$localStorage.profileUsername,
+    username:$localStorage.user
+   
+ })
+  .then(function succeess(rspns) {
+    return rspns;
+    console.log(id);
+   
+  }, function fail(rspns) {
+    return rspns;
+   
+  })
+  
+ }
+
+ });
+
+
 

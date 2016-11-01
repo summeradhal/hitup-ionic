@@ -179,11 +179,12 @@ console.log(userOn)
 .controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location,commentEvent){
   var url="http://localhost:3000";
   $scope.eventComment={};
-  $scope.eventComments={};
+  $scope.eventComments=[];
   $scope.eventComment.username=$localStorage.user;
   console.log($scope.eventComment.username);
 
   $scope.submitEventComment=function(id){
+    
     console.log($scope.eventComment);
       console.log(id+"COMMENTS SUMEMR ID");
 
@@ -210,8 +211,8 @@ console.log(userOn)
       console.log("FOR LOOP")
     if($scope.eventComment[i].eventPostId == $localStorage.eventPostId){
        console.log("FOR LOOP IF THAN THIS THAT")
-      console.log($scope.eventComment[i]);
-       $scope.eventComments = $scope.eventComment[i];
+
+       $scope.eventComments.push($scope.eventComment[i]);
        console.log($scope.eventComments);
     }
   }

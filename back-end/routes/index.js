@@ -281,7 +281,7 @@ router.post('/remove_friend',function(req,res,next){
 
     
     Friends.find(friendUsername, function(err, docs) {
-        Friends.find(username,function(err,docs){
+        Friends.remove(username,function(err,docs){
           console.log("Yo its here now friends deleting");
         if (err) { 
             console.log(err);
@@ -290,13 +290,12 @@ router.post('/remove_friend',function(req,res,next){
             if (docs == null) {
                 console.log(docs);
             } else {
-                console.log("docs removed");
-                console.log(docs)
-                  docs.remove();
+               console.log("docs removed");
                 res.json({
                     passFail: 1,
                     docs: docs
                 });
+               
                 console.log(docs);
             }
         }

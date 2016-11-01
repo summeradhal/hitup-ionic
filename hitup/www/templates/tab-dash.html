@@ -1,5 +1,5 @@
   <ion-view view-title="HitUp">
-<ion-content>
+<ion-content class="dashBody">
 
 <div class="list card">
  <div ng-repeat="event in eventFeed" href="#/tab/profile/{{event.username}}">
@@ -9,22 +9,25 @@
     <p>Date:{{event.eventTime}}</p>
   </div>
 
-  <div class="item item-body">
-    <img class="full-image" src="delorean.jpg">
+  <div class="eventFeedList item-body">
+    <img class="full-image" src="homer.jpg">
     <p>Event Type:{{event.eventType}}</p>
     <p>
      {{event.eventDescription}}
     </p>
     <p>
-      <a href="#/eventComment" class="subdued">1 hitup</a>
+       <a href="" class="subdued"  ng-click="submitHitup('{{event._id}}')" >hitup</a>
+
       <a href="#/eventComment" ng-click="submitEventPostId('{{event._id}}')" class="subdued">Comments</a>
-       <button class="button button-block button-dark button-calm" ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</button>
+       <a href="" ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</a>
     </p>
     </p>
   </div>
   <hr/>
 </div>
 </div>
+
+
 
 
 

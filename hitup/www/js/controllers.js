@@ -138,7 +138,7 @@ console.log(userOn)
 
 })
 
-.controller('EventFeed', function($scope, $http,$localStorage,deletePost) {
+.controller('EventFeed', function($scope, $http,$localStorage,deletePost,hitup) {
   
   $scope.submitEventPostId=function(id){
     $localStorage.eventPostId=id;
@@ -150,12 +150,17 @@ console.log(userOn)
       console.log(id);
       deletePost.deletePostService(id);
     }
+    $scope.submitHitup=function(id){
+      console.log("HEy does this work?")
+    hitup.hitupService(id);
+  }
   $scope.profileUsername=function(username){
     console.log("Thisthishtis")
        console.log(username);
       $localStorage.profileUsername=username;
       console.log($localStorage.profileUsername);
   }
+
   var url = "http://localhost:3000";
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
@@ -291,6 +296,31 @@ console.log(userOn)
 })
 
 
+.service('hitup',function($http,$localStorage){
+ 
+ this.hitupService=function(id){
+  var url = "http://localhost:3000";
+  console.log(id+" the service");
+  console.log("Hit me up mofo");
+
+   $http.post(url + '/hitup',{
+    id:id,
+    username:$localStorage.user,
+
+   
+ })
+  .then(function succeess(rspns) {
+    return rspns;
+    console.log(id);
+   
+  }, function fail(rspns) {
+    return rspns;
+   
+  })
+  
+ }
+
+ })
 
 .service('deletePost',function($http,$localStorage){
  

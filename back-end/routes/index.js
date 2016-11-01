@@ -7,6 +7,7 @@ var User = require('../models/user');
 var EventPost = require('../models/eventPost');
 var EventComments = require('../models/eventComments');
 var Friends= require('../models/friends');
+var Hitup= require('../models/hitup');
 
 // mongoose.connect('mongodb://' + mongoCreds.username + ':' + mongoCreds.password + '@ds057476.mlab.com:57476/snaap_dog');
 mongoUrl='mongodb://' + 'summer' + ':' + 'summer' + '@ds031617.mlab.com:31617/hitup';
@@ -303,6 +304,96 @@ router.post('/remove_friend',function(req,res,next){
     });
 
 })
+router.post('/hitup',function(req,res,next){
+    // console.log(req);
+    var hitupId=req.body.id;
+    var hitupUsername=req.body.username;
+
+    User.findOne({username:hitupUsername},function(err,doc){
+        if(err){
+             res.json({
+                            passFail: 0,
+                            status: "Failed at finding one" 
+
+
+                        });
+              
+         }else{
+            if(doc){
+                 Hitup.findOne({hitupId: hitupId},function(error,result){
+                    Hitup.findOne({hitupUsername:hitupUsername},function(error,result){
+                      if(result){
+                            
+                                console.log(result);
+                              console.log(result._id);
+
+                            var username=result.username;
+                          
+                          result.remove();
+                            
+                            
+                      
+
+                        }else{
+                            EventPost.find({_id: hitupId},function(error,result){
+                                if(error){
+
+                                }else{
+                        
+                        if(result){
+                            
+                            console.log(result[0]._id);
+
+                            var username=result[0].username;
+                             console.log(username);
+                            
+                            var hitupTotal=+1;
+                             var newHitup=new Hitup({
+                                hitupTotal:hitupTotal,
+                                username:username,
+                                hitupUsername:hitupUsername,
+                                hitupId:hitupId
+                })
+
+                     newHitup.save(function(err, saved, status) {
+                        if (err) {
+                            console.log('nope');
+                            console.log(err);
+                            res.json({
+                                passFail: 0,
+                                status: "Event post creation failed."
+                            });
+
+                        } else {
+                            console.log(saved);
+                            res.json({
+                                passFail: 1,
+                                status: "Event post created!"
+                                
+                            });
+                        }
+                    });
+                 }
+                    }
+                        
+                 
+
+
+                    })
+                        
+
+               
+                }
+            
+         
+    })
+    
+}) 
+}
+}
+})
+})// end of hituop
+
 
 
 

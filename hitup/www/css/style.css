@@ -4,14 +4,9 @@ body{
 	
 }
 
-.eventComment{
+.tab.dash .comment{
 	background-color: #28AFB0;
 }
-
-.register{
-	background-color: #28AFB0;
-}
-
 
 .login{
 background-color: #28AFB0;
@@ -36,14 +31,22 @@ background-color: #28AFB0;
 	 margin: auto;
 
 }
-.login .login-button{
+ .login-button{
 	width: 50%;
 	margin: auto;
 }
-.login .register-button{
+ .register-button{
 	text-align: center;
 }
 
-.tab-dash button{
-	width: 2%;
+.eventFeedList{
+	
 }
+
+.profileBody{
+background-color: #28AFB0;
+}
+.dashBody{
+	background-color: #28AFB0;
+}
+

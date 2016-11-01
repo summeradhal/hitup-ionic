@@ -176,7 +176,7 @@ console.log(userOn)
 
 })
 
-.controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location){
+.controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location,commentEvent){
   var url="http://localhost:3000";
   $scope.eventComment={};
   
@@ -186,20 +186,35 @@ console.log(userOn)
   $scope.submitEventComment=function(id){
     console.log($scope.eventComment);
       console.log(id);
-    $http.post(url+'/eventComments',{
-      eventComment:$scope.eventComment,
-      eventPostId:$localStorage.eventPostId
-
-    }).then(function success(rspns){
-      console.log(rspns);
-      console.log("LWJDKLWAJLDK");
-     
-      $state.go('tab.dash');
-    }, function fail(rspns){
-      console.log("error")
-
-    })
+      $localStorage.eventPostCommentId=id;
+     commentEvent.commentEventService(id,$scope.eventComment);
+      
   }
+
+  var url = "http://localhost:3000";
+  $http.post(url + '/eventCommentFeed')
+  .then(function succeess(rspns) {
+    console.log("big win")
+    console.log(rspns.data.Object);
+    // console.log(rspns.data[0].object);
+    // console.log(rspns.data[0]);
+    
+   
+      $scope.eventComment = rspns.data;
+      console.log($scope.eventComment[0]);
+      console.log($scope.eventComment[0].username);
+      console.log("ugh")
+      for(var i=0;i<$scope.eventComment;i++)
+    if($scope.eventComment[i].eventPostId== $localStorage.eventPostCommentId){
+
+       $scope.eventComment = $scope.eventComment[i];
+    }
+  }, function fail(rspns) {
+    console.log("big fail")
+    console.log(rspns);
+  });
+  console.log("Posts");
+
 
   
 
@@ -346,7 +361,26 @@ console.log(userOn)
 
  })
 
+.service('commentEvent',function($http,$localStorage){
+  this.commentEventService=function(id,eventComment){
+    var url = "http://localhost:3000";
+    console.log(eventComment);
+    $http.post(url+'/eventComments',{
 
+      eventComment:eventComment,
+      eventPostId:$localStorage.eventPostId
+
+    }).then(function success(rspns){
+      console.log(rspns);
+      console.log("LWJDKLWAJLDK");
+      
+      
+    }, function fail(rspns){
+      console.log("error")
+
+    })
+  }
+})
 .service('deleteFriend',function($http,$localStorage){
  
  this.friendDeleteService=function(username){

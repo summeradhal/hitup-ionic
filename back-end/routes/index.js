@@ -189,7 +189,24 @@ router.post('/eventFeed',function(req,res,next){
 });
 // end of eventFeed
 
+// beginning of eventFeed
+router.post('/eventCommentFeed',function(req,res,next){
 
+    EventComments.find()
+            .exec(function(err,docs){
+
+                if(err){
+                    console.log("error here")
+                    return next(err)
+                }else{
+                    console.log("Event crap works")
+                    res.json(docs)
+                    
+                }
+            })
+            
+});
+// end of eventFeed
 //Comment on post
 
 // Post events

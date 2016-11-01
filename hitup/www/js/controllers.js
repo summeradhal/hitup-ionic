@@ -179,14 +179,15 @@ console.log(userOn)
 .controller('EventCommentCtrl',function($scope,$http,$localStorage,$stateParams,$state,$location,commentEvent){
   var url="http://localhost:3000";
   $scope.eventComment={};
-  
+  $scope.eventComments={};
   $scope.eventComment.username=$localStorage.user;
   console.log($scope.eventComment.username);
 
   $scope.submitEventComment=function(id){
     console.log($scope.eventComment);
-      console.log(id);
-      $localStorage.eventPostCommentId=id;
+      console.log(id+"COMMENTS SUMEMR ID");
+
+  
      commentEvent.commentEventService(id,$scope.eventComment);
       
   }
@@ -202,13 +203,18 @@ console.log(userOn)
    
       $scope.eventComment = rspns.data;
       console.log($scope.eventComment[0]);
-      console.log($scope.eventComment[0].username);
+      console.log($scope.eventComment[1].username);
       console.log("ugh")
-      for(var i=0;i<$scope.eventComment;i++)
-    if($scope.eventComment[i].eventPostId== $localStorage.eventPostCommentId){
-
-       $scope.eventComment = $scope.eventComment[i];
+      console.log($localStorage.eventPostCommentId);
+    for(var i=0;i<$scope.eventComment.length;i++){
+      console.log("FOR LOOP")
+    if($scope.eventComment[i].eventPostId == $localStorage.eventPostId){
+       console.log("FOR LOOP IF THAN THIS THAT")
+      console.log($scope.eventComment[i]);
+       $scope.eventComments = $scope.eventComment[i];
+       console.log($scope.eventComments);
     }
+  }
   }, function fail(rspns) {
     console.log("big fail")
     console.log(rspns);

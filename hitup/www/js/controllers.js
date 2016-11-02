@@ -229,9 +229,10 @@ console.log(userOn)
 
 
 
-.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory,deleteFriend) {
+.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory,deleteFriend,friendButtons) {
   var url = "http://localhost:3000";
   console.log("DID IT WORK Profile");
+  
  $scope.submitProfileUsername=function(username){
     console.log("Thisthishtis")
       console.log(username);
@@ -251,31 +252,17 @@ console.log(userOn)
 
   $scope.submitDeleteFriend=function(){
       deleteFriend.friendDeleteService($localStorage.profileUsername);
-        console.log(localStorage.profileUsername);
+        console.log($localStorage.profileUsername);
+
       
   }
 
+    friendButtons.friendButtonsService();
+    console.log("yoyoyoyo")
+     console.log("Hey i hope sure this warked"+$localStorage.friendFollowed);
+     $scope.friendFollowed=$localStorage.friendFollowed;
+     console.log($scope.friendFollowed)
 
-
- //  $scope.submitFriendRequest=function(username){
- //        console.log("Adding friends is fun");
- //    $localStorage.friendRequest=username;
-
- //    console.log($localStorage.friendRequest);
- //   localStorage.friendRequest
- //   $http.post(url + '/addFriends',{
- //   friendUsername:$localStorage.friendRequest,
- //    username:$localStorage.user
- // })
- //  .then(function succeess(rspns) {
- //    console.log("Friend add successful")
-   
- //  }, function fail(rspns) {
- //    console.log("friend add failed")
- //    console.log(rspns);
- //  });
- //  }
-   
 
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
@@ -284,6 +271,7 @@ console.log(userOn)
    $scope.profileUsername=$localStorage.profileUsername;
    console.log($scope.profileUsername)
     $scope.eventFeed = rspns.data;
+
   }, function fail(rspns) {
     console.log("big fail")
     console.log(rspns);
@@ -316,6 +304,55 @@ console.log(userOn)
  }
 
 })
+
+
+.service('friendButtons',function($http,$localStorage){
+ var url = "http://localhost:3000";
+ this.friendButtonsService=function(){
+  
+
+   return $http.post(url + '/friendButtons',{
+    friendUsername:$localStorage.profileUsername,
+    username:$localStorage.user
+
+   
+ })
+  .then(function succeess(rspns) {
+    console.log(rspns);
+    console.log(rspns.config.data.username);
+     console.log(rspns.config.data.friendUsername);
+     console.log($localStorage.profileUsername );
+
+      console.log(rspns.data.passfail);
+      if(rspns.data.passfail==0){
+      
+      console.log(rspns.data.passfail);
+        
+      
+         $localStorage.friendFollowed=false;
+     
+          
+
+      }else{
+
+      console.log(rspns.data.passfail);
+
+
+ 
+ 
+          $localStorage.friendFollowed=true;
+      }
+
+  }, function fail(rspns) {
+    return rspns;
+   
+  });
+  
+ }
+
+ })
+
+
 
 
 .service('hitup',function($http,$localStorage){

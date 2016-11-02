@@ -8,12 +8,18 @@
     <h2>{{profileUsername}}</h2>
     <p>November 05, 1955</p>
     <!-- <div ng-if="">  if friensd then unfollow else follow-->
+    <div ng-controller="ProfileCtrl">
+    <div ng-hide='{{friendFollowed}}' )>
     <button class="button button-positive" ng-click="submitFriendRequest()">
-  Follow
+  Follow 
 </button>
+</div>
+   <div ng-show='{{friendFollowed}}'>
 <button class="button button-positive" ng-click="submitDeleteFriend()">
   Unfollow
 </button>
+</div>
+</div>
   </div>
 
   <div class="item item-body">
@@ -25,8 +31,10 @@
      <a class="item item-avatar" href="#/tab/profile/{{eventPost.username}}" ng-click="submitProfileUsername('{{eventPost.username}}')">
       <img src="/images/homer.jpg">
       <h2>{{eventPost.username}}</h2>
-      <p>{{eventPost.eventDescription}}</p>
+      <p>Event Title:{{eventPost.eventTitle}}</p>
+      <p>Description:{{eventPost.eventDescription}}</p>
     </a>
+    <hr/>
 </div>
 <hr/>
   </div>

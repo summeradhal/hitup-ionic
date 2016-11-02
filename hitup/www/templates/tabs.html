@@ -11,22 +11,22 @@ navigation history that also transitions its views in and out.
   </ion-tab>
 
   <!-- Chats Tab -->
-  <ion-tab title="" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
+  <!-- <ion-tab title="" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
     <ion-nav-view name="tab-chats"></ion-nav-view>
-  </ion-tab>
+  </ion-tab> -->
 
   <!-- search -->
-  <ion-tab title="" icon-off="ion-ios-search" icon-on="ion-ios-search" href="#/tab/account">
+<!--   <ion-tab title="" icon-off="ion-ios-search" icon-on="ion-ios-search" href="#/tab/account">
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>
-
+ -->
 <!-- create -->
  <ion-tab title="" icon-off="ion-compose" icon-on="ion-compose" href="#/tab/post">
     <ion-nav-view name="tab-post"></ion-nav-view>
   </ion-tab>
 
   <!-- profile-->
- <ion-tab title="" icon-off="ion-bowtie" icon-on="ion-bowtie" href="#/tab/profile/{{userOn}}">
+ <ion-tab title="" icon-off="ion-bowtie" icon-on="ion-bowtie" href="#/tab/profile/{{userOn}}" ng-click="{{submitProfileUsername}}"r>
     <ion-nav-view name="tab-profile"></ion-nav-view>
   </ion-tab>
 

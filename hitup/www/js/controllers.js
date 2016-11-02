@@ -138,7 +138,7 @@ console.log(userOn)
 
 })
 
-.controller('EventFeed', function($scope, $http,$localStorage,deletePost,hitup) {
+.controller('EventFeed', function($scope, $http,$localStorage,deletePost,hitup,hitupButton) {
   
   $scope.submitEventPostId=function(id){
     $localStorage.eventPostId=id;
@@ -160,6 +160,9 @@ console.log(userOn)
       $localStorage.profileUsername=username;
       console.log($localStorage.profileUsername);
   }
+
+  hitupButton.hitupButtonService($localStorage.eventPostId)
+   $scope.hitupButton=$localStorage.hitupButton;
 
   var url = "http://localhost:3000";
   $http.post(url + '/eventFeed')
@@ -264,7 +267,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
      console.log("Hey i hope sure this warked"+$localStorage.friendFollowed);
    
      $rootScope.friendFollowed=$localStorage.friendFollowed;
-     console.log($rootScope.friendFollowed+"ALKwdjawdjklwajdl")
+     console.log($rootScope.friendFollowed+" for root scope")
 
 
 
@@ -385,6 +388,48 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
 
  })
 
+.service('hitupButton',function($http,$localStorage){
+ 
+ this.hitupButtonService=function(id){
+  var url = "http://localhost:3000";
+  console.log(id+" the service");
+  console.log("Hit me up mofo");
+
+   $http.post(url + '/hitupButton',{
+    id:id,
+    username:$localStorage.user,
+   
+ })
+  .then(function succeess(rspns) {
+    if(rspns.data.passfail==0){
+      
+      console.log(rspns.data.passfail);
+        
+      
+         $localStorage.hitupButton=false;
+     
+          
+
+      }else{
+
+      console.log(rspns.data.passfail);
+
+
+ 
+ 
+          $localStorage.hitupButton=true;
+      }
+    console.log(id);
+
+   
+  }, function fail(rspns) {
+   
+   
+  })
+  
+ }
+
+ })
 .service('deletePost',function($http,$localStorage){
  
  this.deletePostService=function(id){

@@ -17,10 +17,10 @@
     </p>
     <p>
 
-      <div ng-if="true">
+      <div ng-if="hitupButton">
        <a href="" class="subdued"  ng-click="submitHitup('{{event._id}}')"  ><i class="ion-ios-analytics-outline">hitup</i></a>
        </div>
-       <div ng-if="false">
+       <div ng-if="hitupButton==false">
         <a href="" class="subdued" class="ion-ios-analytics" ng-click="submitHitup('{{event._id}}')"  >hitup</a>
         </div>
       <a href="#/eventComment" ng-click="submitEventPostId('{{event._id}}')" class="subdued">Comments</a>

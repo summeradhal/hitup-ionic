@@ -320,6 +320,34 @@ router.post('/friendButtons',function(req,res,next){
 
 
 
+router.post('/hitupButton',function(req,res,next){
+    var username=req.body.username;
+    var friendUsername=req.body.username;
+ Hitup.find({username:username},function(err,result){
+    Hitup.find({friendUsername:friendUsername},function(err,result){
+            
+                 
+                        if(err){
+                            res.json({
+                                passfail:0,
+                                result:result
+                            })
+
+                        }else{
+                             res.json({
+                                passfail:1,
+                                result:result
+                            })
+
+                        }
+
+                    })
+                    console.log("Event crap works")
+                    
+                    
+                })
+            })
+
 
 
 

@@ -18,10 +18,10 @@
     <p>
 
       <div ng-if="hitupButton">
-       <a href="" class="subdued"  ng-click="submitHitup('{{event._id}}')"  ><i class="ion-ios-analytics-outline">hitup</i></a>
+       <a href="" class="subdued"  ng-click="submitHitup('{{event._id}}')"  ><i class="ion-ios-analytics">hitup</i></a>
        </div>
-       <div ng-if="hitupButton==false">
-        <a href="" class="subdued" class="ion-ios-analytics" ng-click="submitHitup('{{event._id}}')"  >hitup</a>
+       <div ng-if="{{hitupButton==false">
+        <a href="" class="subdued" class="ion-ios-analytics" ng-click="submitHitup('{{event._id}}')"  ><i class="ion-ios-analytics-outline">hitup</i></a>
         </div>
       <a href="#/eventComment" ng-click="submitEventPostId('{{event._id}}')" class="subdued">Comments</a>
        <a href="" ng-click="submitDeletePost('{{event._id}}')" class="subdued">Delete</a>

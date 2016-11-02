@@ -7,32 +7,32 @@ HitUp is the event app that connects people and not places. With HitUp, you can 
 
 ##User will be able to:##
 
-*Create and post events
-*Comment on events
-*Add friends
-*Say they're going to an event
+* Create and post events
+* Comment on events
+* Add friends
+* Say they're going to an event
 
 
 ##Built with:##
 
-*Ionic
-*Mongo
-*Node
-*Express
-*Javascript
-*CSS
-*HTML
+* Ionic
+* Mongo
+* Node
+* Express
+* Javascript
+* CSS
+* HTML
 
 
 ##Future Add-ons##
 
-*Notification page
-*Messaging
-*Rate
-*Trending event
-*Trending user
-*Private events
-*Gelocation event swiping
+* Notification page
+* Messaging
+* Rate
+* Trending event
+* Trending user
+* Private events
+* Gelocation event swiping
 
 
 

@@ -50,3 +50,19 @@ background-color: #28AFB0;
 	background-color: #28AFB0;
 }
 
+.buttons-comment{
+	
+width: 50%;
+display: inline-flex;
+padding-left: 20%;
+	
+
+
+}
+
+.button-back{
+	padding-right: 50%;
+}
+
+
+	

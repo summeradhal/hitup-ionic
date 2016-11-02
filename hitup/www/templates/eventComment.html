@@ -9,12 +9,16 @@
     <textarea placeholder="Comment" ng-model="eventComment.comment" ></textarea>
 
   </label>
-
-<a href="#/tab/dash" class="plain"><button class="button button-block button-positive button-calm" id="back-button"> Back
+<div class="buttons-comment">
+<div class="button-back">
+<a href="#/tab/dash" class="plain"><button class="button button-block button-dark button-calm" id="back-button"> Back
       </button></a>
-  <a ng-click="submitEventComment({{eventPostId}})" class="plain"><button class="button button-block button-positive button-calm" id="comment-button"> Submit
+  </div>
+  <div class="button-comment">
+  <a ng-click="submitEventComment({{eventPostId}})" class="plain"><button class="button button-block button-dark button-calm" id="comment-button"> Submit
    </button></a>
-
+   </div>
+</div>
 <div class="list" ng-repeat="event in eventComments">
 
     <a class="item item-avatar" href="#">

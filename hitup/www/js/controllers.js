@@ -232,7 +232,9 @@ console.log(userOn)
 .controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory,deleteFriend,friendButtons) {
   var url = "http://localhost:3000";
   console.log("DID IT WORK Profile");
-  
+  console.log($localStorage.user+"Wjhlakjwdhwla");
+$scope.profileUsername=$localStorage.user;
+console.log($scope.profileUsername+"WAAAAAAAAAA")
  $scope.submitProfileUsername=function(username){
     console.log("Thisthishtis")
       console.log(username);
@@ -263,7 +265,7 @@ console.log(userOn)
      $scope.friendFollowed=$localStorage.friendFollowed;
      console.log($scope.friendFollowed)
 
-
+  
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
     
@@ -319,9 +321,9 @@ console.log(userOn)
  })
   .then(function succeess(rspns) {
     console.log(rspns);
-    console.log(rspns.config.data.username);
+    
      console.log(rspns.config.data.friendUsername);
-     console.log($localStorage.profileUsername );
+     console.log($localStorage.profileUsername);
 
       console.log(rspns.data.passfail);
       if(rspns.data.passfail==0){

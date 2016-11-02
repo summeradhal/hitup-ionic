@@ -25,10 +25,10 @@ HitUp is the event app that connects people and not places. With HitUp, you can 
 
 
 ##Screen shots##
-![alt tag](images/sc1.png)
-![alt tag](images/sc2.png)
-![alt tag](images/sc3.png)
-![alt tag](images/sc4.png)
+![alt text](images/sc1.png)
+![alt text](images/sc2.png)
+![alt text](images/sc3.png)
+![alt text](images/sc4.png)
 
 ##Future Add-ons##
 

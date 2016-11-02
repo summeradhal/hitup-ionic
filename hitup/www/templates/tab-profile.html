@@ -9,14 +9,14 @@
     <p>November 05, 1955</p>
     <!-- <div ng-if="">  if friensd then unfollow else follow-->
     <div ng-controller="ProfileCtrl">
-    <div ng-hide='{{friendFollowed}}' )>
+    <div ng-show={{friendFollowed}}>
     <button class="button button-positive" ng-click="submitFriendRequest()">
   Follow 
 </button>
 </div>
-   <div ng-show='{{friendFollowed}}'>
+   <div ng-hide={{riendFollowed}}>
 <button class="button button-positive" ng-click="submitDeleteFriend()">
-  Unfollow
+Unfollow
 </button>
 </div>
 </div>

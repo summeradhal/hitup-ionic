@@ -229,7 +229,7 @@ console.log(userOn)
 
 
 
-.controller('ProfileCtrl', function($scope,$http,$localStorage,$stateParams,$state,$location,friendRequestFactory,deleteFriend,friendButtons) {
+.controller('ProfileCtrl', function($scope,$http,$localStorage,$rootScope,$stateParams,$state,$location,friendRequestFactory,deleteFriend,friendButtons) {
   var url = "http://localhost:3000";
   console.log("DID IT WORK Profile");
   console.log($localStorage.user+"Wjhlakjwdhwla");
@@ -262,10 +262,12 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
     friendButtons.friendButtonsService();
     console.log("yoyoyoyo")
      console.log("Hey i hope sure this warked"+$localStorage.friendFollowed);
-     $scope.friendFollowed=$localStorage.friendFollowed;
-     console.log($scope.friendFollowed)
+   
+     $rootScope.friendFollowed=$localStorage.friendFollowed;
+     console.log($rootScope.friendFollowed+"ALKwdjawdjklwajdl")
 
-  
+
+
   $http.post(url + '/eventFeed')
   .then(function succeess(rspns) {
     

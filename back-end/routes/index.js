@@ -293,14 +293,10 @@ router.post('/remove_post',function(req,res,next){
 router.post('/friendButtons',function(req,res,next){
     var username=req.body.username;
     var friendUsername=req.body.username;
- Friends.find({username:username})
-            .exec(function(err,docs){
-
-                if(err){
-                    console.log("error here")
-                    return next(err)
-                }else{
-                    Friends.find({friendUsername:friendUsername},function(err,result){
+ Friends.find({username:username},function(err,result){
+    Friends.find({friendUsername:friendUsername},function(err,result){
+            
+                 
                         if(err){
                             res.json({
                                 passfail:0,
@@ -319,10 +315,11 @@ router.post('/friendButtons',function(req,res,next){
                     console.log("Event crap works")
                     
                     
-                }
+                })
             })
 
-})
+
+
 
 
 

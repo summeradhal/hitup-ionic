@@ -174,6 +174,7 @@ console.log(userOn)
   }, function fail(rspns) {
     console.log("big fail")
     console.log(rspns);
+    $state.go($state.tab.dash, {}, {reload: true});
   });
   console.log("Posts");
 
@@ -217,6 +218,7 @@ console.log(userOn)
 
        $scope.eventComments.push($scope.eventComment[i]);
        console.log($scope.eventComments);
+       $state.go($state.eventComment, {}, {reload: true});
     }
   }
   }, function fail(rspns) {
@@ -282,6 +284,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
   }, function fail(rspns) {
     console.log("big fail")
     console.log(rspns);
+    $state.go($state.tab.profile, {}, {reload: true});
   });
   console.log("Posts");
 
@@ -302,7 +305,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
   .then(function succeess(rspns) {
     return rspns;
     console.log(friendUsername);
-   
+   $state.go($state.tab.profile, {}, {reload: true});
   }, function fail(rspns) {
     return rspns;
    
@@ -338,7 +341,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
       
          $localStorage.friendFollowed=false;
      
-          
+          $state.go($state.tab.profile, {}, {reload: true});
 
       }else{
 
@@ -378,7 +381,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
   .then(function succeess(rspns) {
     return rspns;
     console.log(id);
-   
+   $state.go($state.tab.dash, {}, {reload: true});
   }, function fail(rspns) {
     return rspns;
    
@@ -418,7 +421,9 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
  
  
           $localStorage.hitupButton=true;
+
       }
+      $state.go($state.tab.dash, {}, {reload: true});
     console.log(id);
 
    
@@ -444,13 +449,14 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
   .then(function succeess(rspns) {
     return rspns;
     console.log(id);
-   
+   $state.go($state.tab.dash, {}, {reload: true});
   }, function fail(rspns) {
     return rspns;
    
   })
   
  }
+
 
  })
 
@@ -466,7 +472,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
     }).then(function success(rspns){
       console.log(rspns);
       console.log("LWJDKLWAJLDK");
-      
+      $state.go($state.eventComment, {}, {reload: true});
       
     }, function fail(rspns){
       console.log("error")
@@ -489,6 +495,7 @@ console.log($scope.profileUsername+"WAAAAAAAAAA")
   .then(function succeess(rspns) {
     return rspns;
     console.log(id);
+    $state.go($state.tab.profile, {}, {reload: true});
    
   }, function fail(rspns) {
     return rspns;

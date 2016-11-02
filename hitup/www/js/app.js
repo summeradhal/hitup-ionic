@@ -41,6 +41,12 @@ $stateProvider
         controller:'RegisterCtrl'
       
   })
+.state('notifications',{
+    url:'/notifications',
+        templateUrl:'templates/notifications.html',
+        controller:'RegisterCtrl'
+      
+  })
 
  .state('login',{
     url:'/login',

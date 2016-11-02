@@ -24,6 +24,12 @@ HitUp is the event app that connects people and not places. With HitUp, you can 
 * HTML
 
 
+##Screen shots##
+![alt tag](http://url/to/sc1.png)
+![alt tag](http://url/to/sc2.png)
+![alt tag](http://url/to/sc3.png)
+![alt tag](http://url/to/sc4.png)
+
 ##Future Add-ons##
 
 * Notification page
